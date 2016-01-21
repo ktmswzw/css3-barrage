@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>弹幕</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <style>
+        .divAn {
+            opacity: 0;
+            position: absolute;
+            animation: myfirst 2s linear 0s 1 normal; /* Safari 和 Chrome: */
+            -moz-animation: myfirst 2s linear 0s 1 normal; /* Firefox: */
+            -webkit-animation: myfirst 2s linear 0s 1 normal; /* Safari 和 Chrome: */
+            -o-animation: myfirst 2s linear 0s 1 normal; /* Opera: */
+        }
+
+        @keyframes myfirst {
+            0% {
+                opacity: 0;
+                left: 80%;
+            }
+            50% {
+                opacity: 1;
+                left: 40%;
+            }
+            100% {
+                opacity: 0;
+                left: 0px;
+                visibility: hidden;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div id="in" style="background-color: #00AA88;height: 300px">
+    <div class="divAn" style="top:5px;">777</div>
+    <div class="divAn" style="top:30px;">0000</div>
+    <div class="divAn" style="top:100px;">888</div>
+</div>
+<br>
+<div style="text-align: center">
+    <input type="text" id="textT" value="我是弹幕">
+    <input type="button" onclick="javascript:send()" value="send" style="top: 100px;">
+</div>
+</body>
+
+<script src="http://cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script type="application/javascript">
+    function send() {
+        var s = randomBy(5, 200);
+        var idNumber = Date.parse(new Date());
+        var alertString = '<div class="divAn" style="top:' + s + 'px;" id="' + idNumber + '">' + $("#textT").val() + '</div>';
+        $("#in").append(alertString);
+        window.setTimeout(function () {
+            $("#" + idNumber).remove();
+        }, 2000);
+    }
+    function randomBy(under, over) {
+        switch (arguments.length) {
+            case 1:
+                return parseInt(Math.random() * under + 1);
+            case 2:
+                return parseInt(Math.random() * (over - under + 1) + under);
+            default:
+                return 0;
+        }
+    }
+</script>
+</html>
